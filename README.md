@@ -2,6 +2,7 @@
 
 > Click :star:if you like the project. Pull Request are highly appreciated. Follow me [@kansiris87](https://twitter.com/kansiris87) for technical updates.
 
+
 ### Table of Contents
 
 | No. | Questions |
@@ -356,6 +357,10 @@
 |348| [What is the output of below console statement with unary operator?](#what-is-the-output-of-below-console-statement-with-unary-operator)|
 |349| [Does javascript uses mixins?](#does-javascript-uses-mixins)|
 |350| [What is a thunk function?](#what-is-a-thunk-function)|
+|351| [What are asynchronous thunks?](#what-are-asynchronous-thunks)|
+|352| [What is the output of below function calls?](#what-is-the-output-of-below-function-calls)|
+|353| [How to remove all line breaks from a string?](#how-to-remove-all-line-breaks-from-a-string)|
+|354| [What is the difference between reflow and repaint?](#what-is-the-difference-between-reflow-and-repaint)|
 
 1. ### What are the possible ways to create objects in JavaScript?
 
@@ -605,7 +610,7 @@ document.addEventListener ('click', handler);
 12. ### What is a first order function?
 First-order function is a function that doesn’t accept other function as an argument and doesn’t return a function as its return value.
 ```javascript
-const firstOrder = () => console.log ('Iam a first order functionn!');
+const firstOrder = () => console.log ('I am a first order function!');
 ```
 
 **[⬆ Back to Top](#table-of-contents)**
@@ -613,7 +618,7 @@ const firstOrder = () => console.log ('Iam a first order functionn!');
 13. ### What is a higher order function?
 Higher-order function is a function that accepts other function as an argument or returns a function as a return value.
 ```javascript
-const firstOrderFunc = () => console.log ('Hello I'am a First order function');
+const firstOrderFunc = () => console.log ('Hello I am a First order function');
 const higherOrder = ReturnFirstOrderFunc => ReturnFirstOrderFunc ();
 higherOrder (firstOrderFunc);
 ```
@@ -2794,9 +2799,9 @@ function userDetails(username) {
 
      const returnedTarget = Object.assign(target, source);
 
-     console.log(target); // { a: 1, b: 3, c: 5 }
+     console.log(target); // { a: 1, b: 3, c: 4 }
 
-     console.log(returnedTarget); // { a: 1, b: 3, c: 5 }
+     console.log(returnedTarget); // { a: 1, b: 3, c: 4 }
      ```
      As observed in the above code, there is a common property(`b`) from source to target so it's value is been overwritten.
 
@@ -4277,7 +4282,7 @@ function userDetails(username) {
      }
      ```
      The output of the above for loops is 4 4 4 4 and 0 1 2 3
-     **Explanation:** Due to event loop of javascript, the `setTimeout` callback function is called after the loop has been executed. Since the variable i is declared with `var` keyword it became a global variable and the value was equal to 4 using iteration when the time setTimeout function is invoked. Hence, the output of the first loop is `4 4 4 4`. Whereas in the second loop, the variable i is declared as `let` keyword it became a block scoped variable and it holds a new value(0, 1 ,2 3) for each iteration. Hence, the output of the first loop is `0 1 2 3`.
+     **Explanation:** Due to event queue/loop of javascript, the `setTimeout` callback function is called after the loop has been executed. Since the variable i is declared with `var` keyword it became a global variable and the value was equal to 4 using iteration when the time setTimeout function is invoked. Hence, the output of the first loop is `4 4 4 4`. Whereas in the second loop, the variable i is declared as `let` keyword it became a block scoped variable and it holds a new value(0, 1 ,2 3) for each iteration. Hence, the output of the first loop is `0 1 2 3`.
 
      **[⬆ Back to Top](#table-of-contents)**
 
@@ -4940,6 +4945,69 @@ function userDetails(username) {
      thunk() // 5
      ```
      **[⬆ Back to Top](#table-of-contents)**
+
+351. ### What are asynchronous thunks?
+     The asynchronous thunks are useful to make network requests.  Let's see an example of network requests,
+     ```javascript
+     function fetchData(fn){
+       fetch('https://jsonplaceholder.typicode.com/todos/1')
+       .then(response => response.json())
+       .then(json => fn(json))
+     }
+
+
+     const asyncThunk = function (){
+        return fetchData(function getData(data){
+           console.log(data)
+       })
+     }
+
+     asyncThunk()
+     ```
+     The `getData` function won't be called immediately but it will be invoked only when the data is available from API endpoint. The setTimeout function is also used to make our code asynchronous. The best real time example is redux state management library which uses the asynchronous thunks to delay the actions to dispatch.
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+352. ### What is the output of below function calls?
+     **Code snippet:**
+     const circle = {
+       radius: 20,
+       diameter() {
+         return this.radius * 2;
+       },
+       perimeter: () => 2 * Math.PI * this.radius
+     };
+
+     console.log(circle.diameter());
+     console.log(circle.perimeter());
+
+     **Output:**
+
+     The output is 40 and NaN. Remember that diameter is a regular function, whereas the value of perimeter is an arrow function. The this keyword of a regular function(i.e, diameter) refers to surrounding scope which is a class(i.e, Shape object). Whereas this keyword of perimeter function refers the surrounding scope which is window object. Since there is no radius property on window object it returns an undefined value and the multiple of number value returns NaN value.
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+353. ### How to remove all line breaks from a string?
+     The easiest approach is using regular expressions to detect and replace newlines in the string. In this case, we use replace function along with string to replace with, which in our case is an empty string.
+     ```javascript
+     function remove_linebreaks( var message ) {
+         return message.replace( /[\r\n]+/gm, "" );
+     }
+     ```
+     In the above expression, g and m are for global and multiline flags.
+
+     **[⬆ Back to Top](#table-of-contents)**
+     
+354. ### What is the difference between reflow and repaint?
+     A *repaint* occurs when changes are made which affect the visibility of an element, but not its layout. Examples of this include outline, visibility, or background color. A *reflow* involves changes that affect the layout of a portion of the page (or the whole page). Resizing the browser window, changing the font, content changing (such as user typing text), using JavaScript methods involving computed styles, adding or removing elements from the DOM, and changing an element's classes are a few of the things that can trigger reflow. Reflow of an element causes the subsequent reflow of all child and ancestor elements as well as any elements following it in the DOM.
+
+      **[⬆ Back to Top](#table-of-contents)**
+
+
+
+
+
+
 
 
 
