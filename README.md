@@ -361,6 +361,47 @@
 |352| [What is the output of below function calls?](#what-is-the-output-of-below-function-calls)|
 |353| [How to remove all line breaks from a string?](#how-to-remove-all-line-breaks-from-a-string)|
 |354| [What is the difference between reflow and repaint?](#what-is-the-difference-between-reflow-and-repaint)|
+|355| [What happens with negating an array?](#what-happens-with-negating-an-array)|
+|356| [What happens if we add two arrays?](#what-happens-if-we-add-two-arrays)|
+|357| [What is the output of prepend additive operator on falsy values?](#what-is-the-output-of-prepend-additive-operator-on-falsy-values)|
+|358| [How do you create self string using special characters?](#how-do-you-create-self-string-using-special-characters)|
+|358| [How do you remove falsy values from an array?](#how-do-you-remove-falsy-values-from-an-array)|
+|359| [How do you get unique values of an array?](#how-do-you-get-unique-values-of-an-array)|
+|360| [What is destructuring aliases?](#what-is-destructuring-aliases)|
+|361| [How do you map the array values without using map method?](#how-do-you-map-the-array-values-without-using-map-method)|
+|362| [How do you empty an array?](#how-do-you-empty-an-array)|
+|363| [How do you rounding numbers to certain decimals](#how-do-you-rounding-numbers-to-certain-decimals)|
+|364| [What is the easiest way to convert an array to an object?](#what-is-the-easiest-way-to-convert-an-array-to-an-object)|
+|365| [How do you create an array with some data?](#how-do-you-create-an-array-with-some-data)|
+|366| [What are the placeholders from console object?](#what-are-the-placeholders-from-console-object)|
+|367| [Is it possible to add CSS to console messages?](#is-it-possible-to-add-css-to-console-messages)|
+|368| [What is the purpose of dir method of console object?](#what-is-the-purpose-of-dir-method-of-console-object)|
+|369| [Is it possible to debug HTML elements in console?](#is-it-possible-to-debug-html-elements-in-console)|
+|370| [How do you display data in a tabular format using console object?](#how-do-you-display-data-in-a-tabular-format-using-console-object)|
+|371| [How do you verify that an argument is a Number or not?](#how-do-you-verify-that-an-argument-is-a-number-or-not)|
+|372| [How do you create copy to clipboard button?](#how-do-you-create-copy-to-clipboard-button)|
+|373| [What is the shortcut to get timestamp?](#what-is-the-shortcut-to-get-timestamp)|
+|374| [How do you flattening multi dimensional arrays?](#how-do-you-flattening-multi-dimensional-arrays)|
+|375| [What is the easiest multi condition checking?](#what-is-the-easiest-multi-condition-checking)|
+|376| [How do you capture browser back button?](#how-do-you-capture-browser-back-button)|
+|377| [How do you disable right click in the web page?](#how-do-you-disable-right-click-in-the-web-page)|
+|378| [What are wrapper objects?](#what-are-wrapper-objects)|
+|379| [What is AJAX?](#what-is-ajax)|
+|380| [What are the different ways to deal with Asynchronous Code?](#what-are-the-different-ways-to-deal-with-asynchronous-code)|
+|381| [How to cancel a fetch request?](#how-to-cancel-a-fetch-request)|
+|382| [](#)|
+|383| [What is minimum timeout throttling?](#what-is-minimum-timeout-throttling)|
+|384| [How do you implement zero timeout in modern browsers?](#how-do-you-implement-zero-timeout-in-modern-browsers)|
+|385| [What are tasks in event loop?](#what-are-tasks-in-event-loop)|
+|386| [What are microtasks?](#what-are-microtasks)|
+|387| [What are different event loops?](#what-are-different-event-loops)|
+|388| [What is the purpose of queueMicrotask?](#what-is-the-purpose-of-queuemicrotask)|
+|389| [How do you use javascript libraries in typescript file?](#how-do-you-use-javascript-libraries-in-typescript-file)|
+|390| [What are the differences between promises and observables?](#what-are-the-differences-between-promises-and-observables)|
+|391| [](#)|
+
+
+
 
 1. ### What are the possible ways to create objects in JavaScript?
 
@@ -5005,6 +5046,434 @@ function userDetails(username) {
 
 
 
+355. ### What happens with negating an array?
+     Negating an array with `!` character will coerce the array into a boolean. Since Arrays are considered to be truthy So negating it will return `false`.
+     ```javascript
+     console.log(![]); // false
+     ```
+     **[⬆ Back to Top](#table-of-contents)**
+356. ### What happens if we add two arrays?
+     If you add two arrays together, it will convert them both to strings and concatenate them. For example, the result of adding arrays would be as below,
+     ```javascript
+     console.log(['a'] + ['b']);  // "ab"
+     console.log([] + []); // ""
+     console.log(![] + []); // "false", because ![] returns false.
+     ```
+     **[⬆ Back to Top](#table-of-contents)**
+
+357. ### What is the output of prepend additive operator on falsy values?
+     If you prepend additive(+) operator on falsy values(null, undefined, NaN, false, ""), the falsy value converts to a number value zero. Let's display them on browser console as below,
+     ```javascript
+     console.log(+null); // 0
+     console.log(+undefined);// 0
+     console.log(+false); // 0
+     console.log(+NaN); // 0
+     console.log(+""); // 0
+     ```
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+358. ### How do you create self string using special characters?
+     The self string can be formed with the combination of `[]()!+` characters. You need to remember the below conventions to achieve this pattern.
+     1. Since Arrays are truthful values, negating the arrays will produce false: ![] === false
+     2. As per JavaScript coercing rules, the addition of arrays together will toString them: [] + [] === ""
+     3. Prepend an array with + operator will convert an array to false, the negation will make it true and finally converting the result will produce value '1': +(!(+[])) === 1
+
+     By applying the above rules, we can derive below conditions
+     ```javascript
+     ![] + [] === "false"
+     +!+[] === 1
+     ```
+     Now the character pattern would be created as below,
+
+     ```javascript
+           s               e               l               f
+      ^^^^^^^^^^^^^   ^^^^^^^^^^^^^   ^^^^^^^^^^^^^   ^^^^^^^^^^^^^
+
+      (![] + [])[3] + (![] + [])[4] + (![] + [])[2] + (![] + [])[0]
+      ^^^^^^^^^^^^^   ^^^^^^^^^^^^^   ^^^^^^^^^^^^^   ^^^^^^^^^^^^^
+     (![] + [])[+!+[]+!+[]+!+[]] +
+     (![] + [])[+!+[]+!+[]+!+[]+!+[]] +
+     (![] + [])[+!+[]+!+[]] +
+     (![] + [])[+[]]
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     (![]+[])[+!+[]+!+[]+!+[]]+(![]+[])[+!+[]+!+[]+!+[]+!+[]]+(![]+[])[+!+[]+!+[]]+(![]+[])[+[]]
+     ```
+     **[⬆ Back to Top](#table-of-contents)**
+
+358. ### How do you remove falsy values from an array?
+     You can apply filter method on array by passing Boolean as parameter. This way it removes all falsy values(0, undefined, null, false and "") from the array.
+     ```javascript
+     const myArray = [false, null, 1,5, undefined]
+     myArray.filter(Boolean); // [1, 5] // is same as myArray.filter(x => x);
+     ```
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+359. ### How do you get unique values of an array?
+     You can get unique values of an array with the combination of `Set` and rest expression/spread(...) syntax.
+     ```javascript
+     console.log([...new Set([1, 2, 4, 4, 3])]); // [1, 2, 4, 3]
+     ```
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+360. ### What is destructuring aliases?
+     Sometimes you would like to have destructured variable with a different name than the property name. In that case, you'll use a `: newName` to specify a name for the variable. This process is called destructuring aliases.
+     ```javascript
+     const obj = { x: 1 };
+     // Grabs obj.x as as { otherName }
+     const { x: otherName } = obj;
+     ```
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+361. ### How do you map the array values without using map method?
+     You can map the array values without using `map` method by just using `from` method of Array. Let's map city names from Countries array,
+     ```javascrippt
+     const countries = [
+         { name: 'India', capital: 'Delhi' },
+         { name: 'US', capital: 'Washington' },
+         { name: 'Russia', capital: 'Moscow' },
+         { name: 'Singapore', capital: 'Singapore' },
+         { name: 'China', capital: 'Beijing' },
+         { name: 'France', capital: 'Paris' },
+     ];
+
+     const cityNames = Array.from(countries, ({ capital}) => capital);
+     console.log(cityNames); // ['Delhi, 'Washington', 'Moscow', 'Singapore', 'Beijing', 'Paris']
+     ```
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+362. ### How do you empty an array?
+     You can empty an array quicky by setting the array length to zero.
+     ```javascript
+     let cities = ['Singapore', 'Delhi', 'London'];
+     cities.length = 0; // cities becomes []
+     ```
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+363. ### How do you rounding numbers to certain decimals?
+     You can rounding numbers to a certain number of decimals using `toFixed` method from native javascript.
+     ```javascript
+     let pie = 3.141592653;
+     pie = pie.toFixed(3); // 3.142
+     ```
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+364. ### What is the easiest way to convert an array to an object?
+     You can convert an array to an object with the same data using spread(...) operator.
+     ```javascript
+     var fruits = ["banana", "apple", "orange", "watermelon"];
+     var fruitsObject = {...fruits};
+     console.log(fruitsObject); // {0: "banana", 1: "apple", 2: "orange", 3: "watermelon"}
+     ```
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+365. ### How do you create an array with some data?
+     You can create an array with some data or an array with the same values using `fill` method.
+     ```javascript
+     var newArray = new Array(5).fill("0");
+     console.log(newArray); // ["0", "0", "0", "0", "0"]
+     ```
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+366. ### What are the placeholders from console object?
+     Below are the list of placeholders available from console object,
+     1. %o — It takes an object,
+     2. %s — It takes a string,
+     3. %d — It is used for a decimal or integer
+     These placeholders can be represented in the console.log as below
+     ```javascript
+     const user = { "name":"John", "id": 1, "city": "Delhi"};
+     console.log("Hello %s, your details %o are available in the object form", "John", user); // Hello John, your details {name: "John", id: 1, city: "Delhi"} are available in object
+     ```
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+367. ### Is it possible to add CSS to console messages?
+     Yes, you can apply CSS styles to console messages similar to html text on the web page.
+     ```javascript
+     console.log('%c The text has blue color, with large font and red background', 'color: blue; font-size: x-large; background: red');
+     ```
+     The text will be displayed as below,
+
+     ![Screenshot](images/console-CSS.png)
+     **Note:** All CSS styles can be applied to console messages.
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+368. ### What is the purpose of dir method of console object?
+     The `console.dir()` is used to display an interactive list of the properties of the specified JavaScript object as JSON.
+     ```javascript
+     const user = { "name":"John", "id": 1, "city": "Delhi"};
+     console.dir(user);
+     ```
+     The user object displayed in JSON representation
+     ![Screenshot](images/console-css.png)
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+369. ### Is it possible to debug HTML elements in console?
+     Yes, it is possible to get and debug HTML elements in the console just like inspecting elements.
+     ```javascript
+     const element = document.getElementsByTagName("body")[0];
+     console.log(element);
+     ```
+     It prints the HTML element in the console
+     ![Screenshot](images/console-html.png)
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+370. ### How do you display data in a tabular format using console object?
+     The `console.table()` is used to display data in the console in a tabular format to visualize complex arrays or objects.
+     ```javascript
+     const users = [{ "name":"John", "id": 1, "city": "Delhi"},
+                   { "name":"Max", "id": 2, "city": "London"},
+                   { "name":"Rod", "id": 3, "city": "Paris"}];
+     console.table(users);
+     ```
+     The data visualized in a table format
+     ![Screenshot](images/console-table.png)
+     **Not:** Remember that `console.table()` is not supported in IE.
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+371. ### How do you verify that an argument is a Number or not?
+     The combination of IsNaN and isFinite methods are used to confirm whether an argument is a number or not.
+     ```javascript
+     function isNumber(n){
+         return !isNaN(parseFloat(n)) && isFinite(n);
+     }
+     ```
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+372. ### How do you create copy to clipboard button?
+     You need to select the content(using .select() method) of input element and execute the copy command with execCommand (i.e, execCommand('copy')). You can also execute another system commands like cut and paste.
+     ```javascript
+     document.querySelector("#copy-button").onclick = function() {
+       // Select the content
+       document.querySelector("#copy-input").select();
+       // Copy to the clipboard
+       document.execCommand('copy');
+     };
+
+     ```
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+373. ### What is the shortcut to get timestamp?
+     You can use `new Date().getTime()` to get the current timestamp. There is an alternative shortcut to get the value.
+     ```javascript
+     console.log(+new Date());
+     console.log(Date.now());
+     ```
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+374. ### How do you flattening multi dimensional arrays?
+     Flattening bi-dimensional arrays is trivial with Spread operator.
+     ```javascript
+     const biDimensionalArr = [11, [22, 33], [44, 55], [66, 77], 88, 99];
+     const flattenArr = [].concat(...biDimensionalArr); // [11, 22, 33, 44, 55, 66, 77, 88, 99]
+     ```
+     But you can make it work with multi-dimensional arrays by recursive calls,
+
+     ```javascript
+     function flattenMultiArray(arr) {
+         const flattened = [].concat(...arr);
+         return flattened.some(item => Array.isArray(item)) ? flattenMultiArray(flattened) : flattened;
+      }
+     const multiDimensionalArr = [11, [22, 33], [44, [55, 66, [77, [88]], 99]]];
+     const flatArr = flattenMultiArray(multiDimensionalArr); // [11, 22, 33, 44, 55, 66, 77, 88, 99]
+     ```
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+375. ### What is the easiest multi condition checking?
+
+     You can use `indexOf` to compare input with multiple values instead of checking each value as one condition.
+     ```javascript
+     // Verbose approach
+     if (input === 'first' || input === 1 || input === 'second' || input === 2) {
+       someFunction();
+     }
+     // Shortcut
+     if (['first', 1, 'second', 2].indexOf(input) !== -1) {
+       someFunction();
+     }
+     ```
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+376. ### How do you capture browser back button?
+     The `window.onbeforeunload` method is used to capture browser back button event. This is helpful to warn user about loosing the current data.
+     ```javascript
+     window.onbeforeunload = function() {
+     	alert("You work will be lost");
+     };
+     ```
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+377. ### How do you disable right click in the web page?
+     The right click on the page can be disabled by returning false from `oncontextmenu` attribute on body element.
+     ```html
+     <body oncontextmenu="return false;">
+     ```
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+378. ### What are wrapper objects?
+     Primitive Values like string,number and boolean don't have properties and methods but they are temporarily converted or coerce to an object(Wrapper object) when you try to perform actions on them. For example, if you apply toUpperCase() method on a primitive string value, it does not throw an error but returns uppercase of the string.
+     ```javascript
+     let name = "john";
+
+     console.log(name.toUpperCase());  // Behind the scenes treated as console.log(new String(name).toUpperCase());
+     ```
+     i.e, Every primitive except null and undefined have Wrapper Objects and the list of wrapper objects are are String,Number,Boolean,Symbol and BigInt.
+     **[⬆ Back to Top](#table-of-contents)**
+
+379. ### What is AJAX?
+     AJAX stands for Asynchronous JavaScript and XML and it is a group of related technologies(HTML, CSS, JavaScript, XMLHttpRequest API etc) used to display data asynchronously. i.e. We can send data to the server and get data from the server without reloading the web page.
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+380. ### What are the different ways to deal with Asynchronous Code?
+     Below are the list of different way to deal with Asynchronous code.
+     1. Callbacks
+     2. Promises
+     3. Async/await
+     4. Third-party libraries such as async.js,bluebird etc
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+381. ### How to cancel a fetch request?
+     Until few days back, One shortcoming of native promises is no direct way to cancel a fetch request. But the new `AbortController` from js specification allows you to use a signal to abort one or multiple fetch calls.
+     The basic flow of cancelling a fetch request would be as below,
+     1. Create an `AbortController` instance
+     2. Get the signal property of an instance and pass the signal as a fetch option for signal
+     3. Call the AbortController's abort property to cancel all fetches that use that signal
+     For example, let's pass the same signal to multiple fetch calls will cancel all requests with that signal,
+     ```js
+     const controller = new AbortController();
+     const { signal } = controller;
+
+     fetch("http://localhost:8000", { signal }).then(response => {
+         console.log(`Request 1 is complete!`);
+     }).catch(e => {
+         if(e.name === "AbortError") {
+             // We know it's been canceled!
+         }
+     });
+
+     fetch("http://localhost:8000", { signal }).then(response => {
+         console.log(`Request 2 is complete!`);
+     }).catch(e => {
+          if(e.name === "AbortError") {
+              // We know it's been canceled!
+           }
+     });
+
+     // Wait 2 seconds to abort both requests
+     setTimeout(() => controller.abort(), 2000);
+     ```
+     **[⬆ Back to Top](#table-of-contents)**
+
+382. ### What is web speech API?
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+383. ### What is minimum timeout throttling?
+     Both browser and NodeJS javascript environments, throttles with a minimum delay that is greater than 0ms. That means even though setting a delay of 0ms will not happen instantaneously.
+     **Browsers:** They have minimum delay of 4ms. This throttle occurs when successive calls are triggered due to callback nesting(certain depth) or after a certain number of successive intervals.
+     Note: The older browsers has minimum delay of 10ms.
+     **Nodejs:** They have minimum delay of 1ms. This throttle happens when delay is larger than 2147483647 or less than 1.
+     The best example to explain this timeout throttling behavior is the order of below code snippet.
+     ```js
+     function runMeFirst() {
+         console.log('My script is initialized');
+     }
+     setTimeout(runMeFirst, 0);
+     console.log('Script loaded');
+     ```
+     and the output would be in
+     ```cmd
+     Script loaded
+     My script is initialized
+     ```
+     If you don't use `setTimeout`, the order of logs will be in sequential.
+     ```js
+     function runMeFirst() {
+        console.log('My script is initialized');
+     }
+     runMeFirst();
+     console.log('Script loaded');
+     ```
+     and the output is,
+     ```cmd
+     My script is initialized
+     Script loaded
+     ```
+     **[⬆ Back to Top](#table-of-contents)**
+
+384. ### How do you implement zero timeout in modern browsers?
+     You can't use setTimeout(fn, 0) to execute the code immediately due to minimum delay of greater than 0ms. But you can use window.postMessage() to achieve this behavior.
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+385. ### What are tasks in event loop?
+     A task is any javascript code/program which is scheduled to be run by the standard mechanisms such as initially starting to run a program, run an event callback, or an interval or timeout being fired. All these tasks are schedules on task queue.
+     Below is the list of use cases to add tasks to the task queue,
+     1. When a new javascript program is executed directly from console or running by the <script> element, the task will be added to task queue.
+     2. When an event fires, the event callback added to task queue
+     3. When a setTimeout or setInterval is reached, the corresponding callback added to task queue
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+386. ### What is microtask?
+     Microtask is the javascript code which needs to be executed immediately after the currently executing task/microtask is completed. The main sources of microtasks are Promise.resolve, Promise.reject, MutationObservers, IntersectionObservers etc
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+387. ### What are different event loops?
+
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+388. ### What is the purpose of queueMicrotask?
+
+     **[⬆ Back to Top](#table-of-contents)**
+
+389. ### How do you use javascript libraries in typescript file?
+     It is known that not all JavaScript libraries or frameworks have TypeScript declaration files. But if you still want to use libraries or frameworks in our TypeScript files without getting compilation errors, the only solution is `declare` keyword along with a variable declaration. For example, let's imagine you have a library called `customLibrary` that doesn’t have a TypeScript declaration and have a namespace called `customLibrary` in the global namespace. You can use this library in typescript code as below,
+     ```js
+     declare var customLibrary;
+     ```
+     In the runtime, typescript will provide the type to `customLibrary` variable as `any` type. The another alternative without using declare keyword is below
+     ```js
+     var customLibrary: any;
+     ```
+     **[⬆ Back to Top](#table-of-contents)**
+
+390. ### What are the differences between promises and observables?
+     Some of the major difference in a tabular form
+
+     | Promises | Observables |
+     |---- | ---------
+     | Emits only a single value at a time  | Emits multiple values over a period of time(stream of values ranging from 0 to multiple) |
+     | Eager in nature; they are going to be called immediately  | Lazy in nature; they require subscription to be invoked |
+     | Promise is always asynchronous even though it resolved immediately | Observable can be either synchronous or asynchronous|
+     | Doesn't provide any operators | Provides operators such as map, forEach, filter, reduce, retry, and retryWhen etc |
+     | Cannot be canceled | Canceled by using unsubscribe() method |
+
+     **[⬆ Back to Top](#table-of-contents)**
 
 
 
